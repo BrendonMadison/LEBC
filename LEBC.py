@@ -16,6 +16,7 @@
 #
 #PlotCompton which handles plotting the results from GetBoostedCompton
 #
+#THIS IS THE STAND ALONE VERSION! IT SHOULDN"T DO ANYTHING?
 #
 import matplotlib.pyplot as plt
 from scipy.constants import e, h, hbar, alpha, c, m_e
@@ -29,13 +30,6 @@ jte = 6.242e+18
 thomx = 6.6524587321e-29
 #electron mass in GeV
 mme = 0.0005109989461
-
-#For the electron beam
-#The following RMS sizes are in nanometers
-sx = 640.0e-9
-sy = 5.7e-9
-sz = 300000.0e-9
-svec = [sx,sy,sz]
 
 #Total number of particles in the beam packet
 Npacket = 2.0e10
@@ -237,9 +231,13 @@ def PlotCompton(pang,pene,epz,angres):
     ax3 = fig.add_subplot(223, projection='polar')
     ax4 = fig.add_subplot(224, projection='polar')
     ax1.scatter([item[0] for item in ea],en,alpha=0.1)
+    ax1.set_ylim(0.0,np.amax(en)*1.10)
     ax2.scatter([item[1] for item in ea],en,alpha=0.1)
+    ax2.set_ylim(0.0,np.amax(en)*1.10)
     ax3.scatter([item[0] for item in ea],xs*1.0e31,alpha=0.1)
+    ax3.set_ylim(0.0,np.amax(xs)*1.10*1.0e31)
     ax4.scatter([item[1] for item in ea],xs*1.0e31,alpha=0.1)
+    ax4.set_ylim(0.0,np.amax(xs)*1.10*1.0e31)
     ax1.set_title("Photon Energy [GeV], Theta Plot")
     ax2.set_title("Photon Energy [GeV], Phi Plot")
     ax3.set_title("XSection [mb], Theta Plot")
@@ -254,31 +252,16 @@ def PlotCompton(pang,pene,epz,angres):
     ax3 = fig.add_subplot(223, projection='polar')
     ax4 = fig.add_subplot(224, projection='polar')
     ax1.scatter([item[0] for item in la],en,alpha=0.1)
+    ax1.set_ylim(0.0,np.amax(en)*1.10)
     ax2.scatter([item[1] for item in la],en,alpha=0.1)
+    ax2.set_ylim(0.0,np.amax(en)*1.10)
     ax3.scatter([item[0] for item in la],xs*1.0e31,alpha=0.1)
+    ax3.set_ylim(0.0,np.amax(xs)*1.10*1.0e31)
     ax4.scatter([item[1] for item in la],xs*1.0e31,alpha=0.1)
+    ax4.set_ylim(0.0,np.amax(xs)*1.10*1.0e31)
     ax1.set_title("Photon Energy [GeV], Theta Plot")
     ax2.set_title("Photon Energy [GeV], Phi Plot")
     ax3.set_title("XSection [mb], Theta Plot")
     ax4.set_title("XSection [mb], Phi Plot")
     plt.savefig(str("%.2e" % epz)+str("%.2e" % pene)+"LabFrame.pdf")
     plt.show()
-
-print("If the radial axis scale on the polar plots confuses you make sure to look at the top left of the plot!")
-print("If it says '1e-9' and the radial axis says '5' then its actually 5e-9 !")
-
-#Set ups for IR laser
-#PlotCompton(np.pi/2.0,0.7e-9,125.0,0.005)
-PlotCompton(0.02,0.7e-9,125.0,0.005)
-#PlotCompton(0.001,1.0e-9,125.0,0.0005)
-#IR laser near the Thomson limit ... which is where sqrt(s) ~= m_e
-#So the text books are kind of off on when this happens...
-#It looks nice to look at these as it transitions from one regime to the other...
-#PlotCompton(np.pi/2.0,0.7e-9,0.000511,0.05)
-#PlotCompton(np.pi/2.0,0.7e-9,0.5*0.000511,0.05)
-#PlotCompton(np.pi/2.0,0.7e-9,2.0*0.000511,0.05)
-#PlotCompton(np.pi/2.0,0.7e-9,0.25*0.000511,0.05)
-#You can see this in the "two lobes" in the XSection , Theta Plots
-#Two set ups for 2.4 GHz parabolic dish antenna
-#PlotCompton(np.pi/2.0,9.93e-15,125.0,0.005)
-#PlotCompton(0.02,9.93e-15,125.0,0.005)
